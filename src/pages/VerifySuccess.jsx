@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import API from "../api/api";
 
 const VerifySuccess = () => {
     const navigate = useNavigate();
@@ -9,32 +10,22 @@ const VerifySuccess = () => {
     useEffect(() => {
         const checkUser = async () => {
             try {
-                const res = await fetch("http://localhost:7000/api/auth/me", {
-                    credentials: "include"
-                });
+                const res = await API.get("/auth/me");
 
-                if (!res.ok) {
-                    throw new Error("Not authenticated");
-                }
-
-
-                const data = await res.json();
-
-                setUser(data.user);
-
+                setUser(res.data.user);
 
                 setTimeout(() => {
                     navigate("/");
                 }, 1000);
 
-            } catch {
-
+            } catch (err) {
+                console.log("Verify error:", err);
                 navigate("/login");
             }
         };
 
         checkUser();
-    }, [navigate]);
+    }, [navigate, setUser]);
 
     return (
         <div className="h-screen flex items-center justify-center bg-black text-white">
@@ -46,7 +37,3 @@ const VerifySuccess = () => {
 };
 
 export default VerifySuccess;
-
-
-
-
