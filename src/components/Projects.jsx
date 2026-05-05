@@ -60,119 +60,147 @@ const projects = [
 
 ];
 
-const Projects = () => {
+const container = {
+    hidden: {},
+    show: {
+        transition: {
+            staggerChildren: 0.15,
+        },
+    },
+};
+
+const item = {
+    hidden: { opacity: 0, y: 70, scale: 0.9 },
+    show: {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        transition: {
+            type: "spring",
+            stiffness: 90,
+            damping: 14,
+        },
+    },
+};
+
+export default function Projects() {
     return (
-        <div className="py-24 px-6 bg-black text-white">
+        <div className="relative py-28 px-6 bg-black text-white overflow-hidden">
+
+
+            <div className="absolute inset-0 bg-gradient-to-br from-[#050014] via-black to-[#000814]" />
+            <div className="absolute top-[-150px] left-[-120px] w-[500px] h-[500px] bg-purple-600/20 blur-[140px] rounded-full" />
+            <div className="absolute bottom-[-150px] right-[-120px] w-[500px] h-[500px] bg-blue-600/20 blur-[140px] rounded-full" />
 
 
             <motion.h2
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                className="text-4xl md:text-5xl font-bold text-center mb-6"
+                className="text-4xl md:text-5xl font-bold text-center mb-6 relative z-10"
             >
                 Featured Projects
             </motion.h2>
 
-            <p className="text-gray-400 text-center mb-16 max-w-xl mx-auto">
-                A collection of real-world applications built with modern technologies.
-            </p>
+            <motion.p
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                className="text-gray-400 text-center mb-16 max-w-xl mx-auto relative z-10"
+            >
+                Real-world MERN applications with scalable architecture & UI focus.
+            </motion.p>
 
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
-
-                {projects.map((project, i) => (
+            <motion.div
+                variants={container}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto relative z-10"
+            >
+                {projects.map((p, i) => (
                     <motion.div
                         key={i}
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: i * 0.1 }}
-                        whileHover={{ y: -10 }}
-                        className="relative group rounded-2xl overflow-hidden border border-gray-800 bg-gray-900/50 backdrop-blur-lg"
+                        variants={item}
+                        whileHover={{
+                            y: -15,
+                            rotateX: 6,
+                            rotateY: -6,
+                            scale: 1.03,
+                        }}
+                        className="group relative perspective-[1000px]"
                     >
 
 
-                        <div className="overflow-hidden">
-                            <img
-                                src={project.image}
-                                alt={project.title}
-                                className="w-full h-64 object-cover group-hover:scale-110 transition duration-500"
-                            />
-                        </div>
+                        <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-500 via-blue-500 to-pink-500 rounded-2xl blur opacity-20 group-hover:opacity-60 transition" />
 
 
-                        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-90"></div>
+                        <div className="relative rounded-2xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-xl shadow-2xl transform-gpu">
 
 
-                        <div className="absolute bottom-0 p-6">
+                            <div className="relative overflow-hidden">
 
-                            <h3 className="text-xl font-semibold mb-2">
-                                {project.title}
-                            </h3>
+                                <motion.img
+                                    src={p.image}
+                                    className="w-full h-64 object-cover"
+                                    whileHover={{ scale: 1.15 }}
+                                    transition={{ duration: 0.6 }}
+                                />
 
-                            <p className="text-gray-300 text-sm mb-3 line-clamp-2">
-                                {project.desc}
-                            </p>
 
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 translate-x-[-100%] group-hover:translate-x-[100%] transition duration-1000" />
 
-                            <div className="flex flex-wrap gap-2 mb-4">
-                                {project.tech.map((t, idx) => (
-                                    <span
-                                        key={idx}
-                                        className="text-xs bg-white/10 px-2 py-1 rounded backdrop-blur"
-                                    >
-                                        {t}
-                                    </span>
-                                ))}
                             </div>
 
-                            <div className="flex gap-3 flex-wrap">
 
-                                <a href={project.github} target="_blank"
-                                    className="text-sm border px-3 py-1 rounded hover:bg-white hover:text-black">
-                                    Code
-                                </a>
+                            <div className="p-6">
+
+                                <h3 className="text-xl font-semibold mb-2">
+                                    {p.title}
+                                </h3>
+
+                                <p className="text-gray-400 text-sm mb-4">
+                                    {p.desc}
+                                </p>
 
 
-                                {project.backend && (
-                                    <a href={project.backend} target="_blank"
-                                        className="text-sm border px-3 py-1 rounded hover:bg-white hover:text-black">
-                                        Backend
+                                <div className="flex flex-wrap gap-2 mb-4">
+                                    {p.tech.map((t, idx) => (
+                                        <span
+                                            key={idx}
+                                            className="text-xs bg-white/10 px-2 py-1 rounded"
+                                        >
+                                            {t}
+                                        </span>
+                                    ))}
+                                </div>
+
+
+                                <div className="flex gap-3 flex-wrap">
+
+                                    <a
+                                        href={p.github}
+                                        className="text-sm border px-3 py-1 rounded hover:bg-white hover:text-black transition"
+                                    >
+                                        Code
                                     </a>
-                                )}
 
+                                    {p.live && (
+                                        <a
+                                            href={p.live}
+                                            className="text-sm bg-purple-600 px-3 py-1 rounded hover:scale-105 transition"
+                                        >
+                                            Live
+                                        </a>
+                                    )}
 
-                                {project.live && (
-                                    <a href={project.live} target="_blank"
-                                        className="text-sm bg-purple-600 px-3 py-1 rounded">
-                                        Live
-                                    </a>
-                                )}
+                                </div>
 
                             </div>
 
                         </div>
                     </motion.div>
                 ))}
-
-            </div>
+            </motion.div>
         </div>
-    )
-};
-
-
-export default Projects;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    );
+}
