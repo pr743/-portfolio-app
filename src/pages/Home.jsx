@@ -8,17 +8,15 @@ import AIChat from "../components/AIChat";
 import Footer from "../components/Footer";
 import { motion, useScroll, useSpring } from "framer-motion";
 
-const Section = ({ children, className = "" }) => {
+const Section = ({ id, children, className = "" }) => {
     return (
         <motion.section
-            initial={{ opacity: 0, y: 60, scale: 0.99 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, amount: 0.25 }}
-            transition={{
-                duration: 0.7,
-                ease: [0.16, 1, 0.3, 1],
-            }}
-            className={`relative ${className}`}
+            id={id}
+            initial={{ opacity: 0, y: 80 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className={`relative w-full ${className}`}
         >
             {children}
         </motion.section>
@@ -31,11 +29,10 @@ export default function Home() {
     const scaleX = useSpring(scrollYProgress, {
         stiffness: 120,
         damping: 25,
-        restDelta: 0.001,
     });
 
     return (
-        <div className="relative min-h-screen text-white overflow-x-hidden">
+        <div className="relative text-white overflow-x-hidden">
 
 
             <motion.div
@@ -46,9 +43,10 @@ export default function Home() {
 
 
             <div className="fixed inset-0 -z-10 bg-[#05010a]" />
+
             <div className="fixed inset-0 -z-10 overflow-hidden">
-                <div className="absolute top-[-200px] left-[-150px] w-[600px] h-[600px] bg-purple-600/25 blur-[160px] rounded-full animate-pulse" />
-                <div className="absolute bottom-[-200px] right-[-150px] w-[600px] h-[600px] bg-blue-600/25 blur-[160px] rounded-full animate-pulse" />
+                <div className="absolute top-[-200px] left-[-150px] w-[600px] h-[600px] bg-purple-600/20 blur-[160px] rounded-full animate-pulse" />
+                <div className="absolute bottom-[-200px] right-[-150px] w-[600px] h-[600px] bg-blue-600/20 blur-[160px] rounded-full animate-pulse" />
             </div>
 
             <Navbar />
@@ -59,50 +57,37 @@ export default function Home() {
             </Section>
 
 
-            <Section id="about" className="py-20 bg-black/40">
+            <Section id="about" className="py-24">
                 <About />
             </Section>
 
 
-            <Section className="py-20 bg-black/60">
+            <Section id="services" className="py-24 bg-white/5 backdrop-blur-sm">
                 <Services />
             </Section>
 
 
-            <Section id="skills" className="py-20 bg-black">
+            <Section id="skills" className="py-24">
                 <Skills />
             </Section>
 
 
-            <Section id="projects" className="py-16 bg-black/60">
+            <Section id="projects" className="py-24">
                 <Projects />
             </Section>
 
 
-            <Section id="ai" className="py-20 bg-black/80">
+            <Section id="ai" className="py-24">
                 <AIChat />
             </Section>
 
 
-            <Section id="contact" className="py-16 bg-black/60">
+            <Section id="contact" className="py-24">
                 <Footer />
             </Section>
 
         </div>
     );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
