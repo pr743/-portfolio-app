@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { FaReact, FaNodeJs } from "react-icons/fa";
 import { SiMongodb, SiOpenai } from "react-icons/si";
 
-const roles = ["MERN Developer", "AI Builder", "Full Stack Engineer"];
+const roles = ["MERN Developer", "Full Stack Engineer"];
 
 export default function Hero() {
     const [text, setText] = useState("");
@@ -142,13 +142,6 @@ export default function Hero() {
 
 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-
-                    <a
-                        href="#ai"
-                        className="bg-gradient-to-r from-purple-500 to-blue-500 px-6 py-3 rounded-xl font-semibold hover:scale-105 transition"
-                    >
-                        🤖 Talk to AI
-                    </a>
 
                     <a
                         href="#projects"

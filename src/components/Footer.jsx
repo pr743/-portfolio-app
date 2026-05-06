@@ -94,8 +94,8 @@ export default function Footer() {
                     <div className="flex gap-5 text-2xl mb-6">
                         {[
                             { icon: <FaGithub />, link: "https://github.com/pr743" },
-                            { icon: <FaLinkedin />, link: "#" },
-                            { icon: <FaEnvelope />, link: "#" }
+                            { icon: <FaLinkedin />, link: "https://www.linkedin.com/" },
+                            { icon: <FaEnvelope />, link: "princemungra1340@gmail.com" }
                         ].map((item, i) => (
                             <motion.a
                                 key={i}
