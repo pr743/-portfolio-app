@@ -95,7 +95,7 @@ export default function Footer() {
                         {[
                             { icon: <FaGithub />, link: "https://github.com/pr743" },
                             { icon: <FaLinkedin />, link: "https://www.linkedin.com/" },
-                            { icon: <FaEnvelope />, link: "princemungra1340@gmail.com" }
+                            { icon: <FaEnvelope />, link: "#" }
                         ].map((item, i) => (
                             <motion.a
                                 key={i}
